@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import '../filter/filter.css';
+import '../Filter/filter.css';
 
 
 

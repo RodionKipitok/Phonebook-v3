@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { customAlphabet } from 'nanoid';
-import { PhonebookForm } from './Phonebook/Form';
-import Filter from './Phonebook/filter/Filter';
-import Contacts from './Phonebook/Contacts';
+import { PhonebookForm } from './Phonebook/Form/Form';
+import Filter from './Phonebook/Filter/Filter';
+import Contacts from './Phonebook/Contact/Contacts';
 
 class App extends Component {
   state = {
@@ -14,6 +14,21 @@ class App extends Component {
     ],
     filter: '',
   };
+
+  componentDidMount() {
+    const contacts = localStorage.getItem('contacts');
+    const parsedContact = JSON.parse(contacts)
+   
+    if(parsedContact){
+      this.setState({contacts:parsedContact})
+    }
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.contacts !== prevProps.contacts) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
 
   handleChange = evt => {
     this.setState({ [evt.target.name]: evt.target.value });
@@ -46,18 +61,14 @@ class App extends Component {
     return filterName;
   };
 
-
-  
-
   deleteContact = id => {
-    console.log(id);
-
     this.setState(prevState => {
       return { contacts: prevState.contacts.filter(item => item.id !== id) };
     });
   };
 
   render() {
+    console.log('App render');
     const filteredContacts = this.onFilterName();
 
     return (

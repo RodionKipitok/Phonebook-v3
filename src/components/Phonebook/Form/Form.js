@@ -1,5 +1,5 @@
 import React from "react";
-import '../Phonebook/form.css';
+import '../Form/form.css';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as yup from 'yup';
 
@@ -33,16 +33,14 @@ export const PhonebookForm = (props) => {
 
 		const dataContacts = state.contacts;
 		const nameInput = values.name;
-		console.log(actions);
-
-		console.log(dataContacts);
+	
 
 		const isContact = dataContacts.some((item) => {
 
 			return nameInput.toLowerCase() === item.name.toLowerCase()
 		})
 
-		console.log(isContact);
+
 
 
 		if (!!isContact) {
